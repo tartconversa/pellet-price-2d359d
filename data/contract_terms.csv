@@ -1,4 +1,4 @@
-contract_id,base_price,reference_heat,guaranteed_t,recheck_payer,recheck_yuan,min_supplier_net
-A,430,17000,170,buyer,300,3000
-B,450,17500,170,supplier,300,3000
-C,410,16500,190,buyer,450,3500
+contract_id,base_price,reference_heat,guaranteed_t,recheck_payer,recheck_yuan,min_supplier_net,ash_limit_pct,ash_penalty_yuan_pct
+A,430,17000,170,buyer,300,3000,4,12
+B,450,17500,170,supplier,300,3000,3.5,18
+C,410,16500,190,buyer,450,3500,3.5,12

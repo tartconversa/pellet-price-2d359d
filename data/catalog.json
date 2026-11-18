@@ -355,6 +355,18 @@
           "type": "number",
           "description": "供方最低净收益",
           "nullable": true
+        },
+        {
+          "name": "ash_limit_pct",
+          "type": "number",
+          "description": "灰分罚扣起点百分比",
+          "nullable": true
+        },
+        {
+          "name": "ash_penalty_yuan_pct",
+          "type": "number",
+          "description": "每超一灰分百分点每湿吨扣款",
+          "nullable": true
         }
       ],
       "key": [
@@ -363,7 +375,7 @@
       "references": [],
       "path": "data/contract_terms.csv",
       "row_count": 3,
-      "sha256": "69b762c53b4411978295cec37a43d3082d0a1c82cef91857cc78822af7c2ecfe"
+      "sha256": "fd2016efb0cacc2f60ab76608fc3eaa8369b0438a460844e3a6573062fa66a16"
     },
     {
       "name": "adjustments",
