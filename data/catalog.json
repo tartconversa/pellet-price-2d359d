@@ -180,7 +180,7 @@
       ],
       "path": "data/trucks.csv",
       "row_count": 171,
-      "sha256": "2eb0d5a33773745050a57fc32fb4baac3ed8f17fa6256e9f04494057ecf83dc6"
+      "sha256": "b6c77b2279c76c3e14c7ecb0061a3b4945c7908f06a1332d08d473c9857a0d71"
     },
     {
       "name": "assays",
@@ -270,8 +270,8 @@
         }
       ],
       "path": "data/assays.csv",
-      "row_count": 217,
-      "sha256": "85aeb21dd1ce92c788ded0727e885fbac30fafb0a3308afcc44362d10d381d22"
+      "row_count": 186,
+      "sha256": "dea949f8fa43201859e1ff25d0da33912dc71a314924cfb4177b568c85653018"
     },
     {
       "name": "lab_error",
