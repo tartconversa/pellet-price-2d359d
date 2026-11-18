@@ -1,0 +1,5 @@
+ruling_id,truck_id,replacement_sample,available_at
+R0,T0-3,T0-3-appeal,2025-09-23T08:00:00+08:00
+R1,T0-4,T0-4-appeal,2025-09-24T08:00:00+08:00
+R2,T1-1,T1-1-appeal,2025-09-25T08:00:00+08:00
+R3,T1-2,T1-2-appeal,2025-09-26T08:00:00+08:00

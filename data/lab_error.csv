@@ -1,0 +1,4 @@
+pair_id,left,right,correlation
+E1,water_pct,calorific_mj_t,-0.65
+E2,water_pct,ash_pct,0.3
+E3,ash_pct,calorific_mj_t,-0.4

@@ -1,0 +1,503 @@
+{
+  "title": "竹料质量计价的激励与成本转嫁分析",
+  "encoding": "UTF-8",
+  "delimiter": ",",
+  "missing": "",
+  "synthetic": true,
+  "tables": [
+    {
+      "name": "suppliers",
+      "description": "供方能力与客观机会。",
+      "columns": [
+        {
+          "name": "supplier_id",
+          "type": "string",
+          "description": "供方",
+          "nullable": true
+        },
+        {
+          "name": "capacity_t",
+          "type": "number",
+          "description": "周期湿吨能力",
+          "nullable": true
+        },
+        {
+          "name": "distance_km",
+          "type": "number",
+          "description": "运距",
+          "nullable": true
+        },
+        {
+          "name": "dry_cost_yuan",
+          "type": "number",
+          "description": "每降低一含水百分点每吨成本",
+          "nullable": true
+        },
+        {
+          "name": "transport_yuan_t",
+          "type": "number",
+          "description": "每湿吨运费",
+          "nullable": true
+        },
+        {
+          "name": "raw_cost_yuan_t",
+          "type": "number",
+          "description": "原料购入元每湿吨",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "supplier_id"
+      ],
+      "references": [],
+      "path": "data/suppliers.csv",
+      "row_count": 12,
+      "sha256": "7a033db3a6f887c907ad11a9ce05f6dea20e8624376b47c7b74a1b4d30532929"
+    },
+    {
+      "name": "offers",
+      "description": "包括未成交的真实询价机会。",
+      "columns": [
+        {
+          "name": "offer_id",
+          "type": "string",
+          "description": "报价",
+          "nullable": true
+        },
+        {
+          "name": "period",
+          "type": "integer",
+          "description": "周期",
+          "nullable": true
+        },
+        {
+          "name": "supplier_id",
+          "type": "string",
+          "description": "供方",
+          "nullable": true
+        },
+        {
+          "name": "quoted_price",
+          "type": "number",
+          "description": "每湿吨报价",
+          "nullable": true
+        },
+        {
+          "name": "offered_t",
+          "type": "number",
+          "description": "可供湿吨",
+          "nullable": true
+        },
+        {
+          "name": "eligible",
+          "type": "boolean",
+          "description": "可响应",
+          "nullable": true
+        },
+        {
+          "name": "accepted",
+          "type": "boolean",
+          "description": "成交",
+          "nullable": true
+        },
+        {
+          "name": "reason",
+          "type": "string",
+          "description": "结果原因",
+          "nullable": true
+        },
+        {
+          "name": "available_at",
+          "type": "datetime",
+          "description": "可知时刻",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "offer_id"
+      ],
+      "references": [
+        {
+          "column": "supplier_id",
+          "target_table": "suppliers",
+          "target_column": "supplier_id"
+        }
+      ],
+      "path": "data/offers.csv",
+      "row_count": 216,
+      "sha256": "96156972b3698ed3ee099e8be6ec50ab402c35b3809429370294f91031795134"
+    },
+    {
+      "name": "trucks",
+      "description": "实际接收与最终裁定引用，drying_cost 是本车加工成本。",
+      "columns": [
+        {
+          "name": "truck_id",
+          "type": "string",
+          "description": "车次",
+          "nullable": true
+        },
+        {
+          "name": "offer_id",
+          "type": "string",
+          "description": "报价",
+          "nullable": true
+        },
+        {
+          "name": "wet_t",
+          "type": "number",
+          "description": "湿吨",
+          "nullable": true
+        },
+        {
+          "name": "drying_cost",
+          "type": "number",
+          "description": "加工元每湿吨",
+          "nullable": true
+        },
+        {
+          "name": "final_sample",
+          "type": "string",
+          "description": "裁定留样",
+          "nullable": true
+        },
+        {
+          "name": "available_at",
+          "type": "datetime",
+          "description": "可知时刻",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "truck_id"
+      ],
+      "references": [
+        {
+          "column": "offer_id",
+          "target_table": "offers",
+          "target_column": "offer_id"
+        }
+      ],
+      "path": "data/trucks.csv",
+      "row_count": 171,
+      "sha256": "2eb0d5a33773745050a57fc32fb4baac3ed8f17fa6256e9f04494057ecf83dc6"
+    },
+    {
+      "name": "assays",
+      "description": "含按质量边界选择的复检。",
+      "columns": [
+        {
+          "name": "sample_id",
+          "type": "string",
+          "description": "留样",
+          "nullable": true
+        },
+        {
+          "name": "truck_id",
+          "type": "string",
+          "description": "车次",
+          "nullable": true
+        },
+        {
+          "name": "round",
+          "type": "integer",
+          "description": "检验次序",
+          "nullable": true
+        },
+        {
+          "name": "water_pct",
+          "type": "number",
+          "description": "含水率",
+          "nullable": true
+        },
+        {
+          "name": "ash_pct",
+          "type": "number",
+          "description": "灰分",
+          "nullable": true
+        },
+        {
+          "name": "calorific_mj_t",
+          "type": "number",
+          "description": "干基热值",
+          "nullable": true
+        },
+        {
+          "name": "water_error",
+          "type": "number",
+          "description": "水分误差尺度",
+          "nullable": true
+        },
+        {
+          "name": "ash_error",
+          "type": "number",
+          "description": "灰分误差尺度",
+          "nullable": true
+        },
+        {
+          "name": "heat_error",
+          "type": "number",
+          "description": "热值误差尺度",
+          "nullable": true
+        },
+        {
+          "name": "error_group",
+          "type": "string",
+          "description": "共同误差组",
+          "nullable": true
+        },
+        {
+          "name": "selection_reason",
+          "type": "string",
+          "description": "抽检原因",
+          "nullable": true
+        },
+        {
+          "name": "available_at",
+          "type": "datetime",
+          "description": "可知时刻",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "sample_id"
+      ],
+      "references": [
+        {
+          "column": "truck_id",
+          "target_table": "trucks",
+          "target_column": "truck_id"
+        }
+      ],
+      "path": "data/assays.csv",
+      "row_count": 217,
+      "sha256": "85aeb21dd1ce92c788ded0727e885fbac30fafb0a3308afcc44362d10d381d22"
+    },
+    {
+      "name": "lab_error",
+      "description": "共同测量误差的相关结构，变量顺序见 left/right。",
+      "columns": [
+        {
+          "name": "pair_id",
+          "type": "string",
+          "description": "配对",
+          "nullable": true
+        },
+        {
+          "name": "left",
+          "type": "string",
+          "description": "变量",
+          "nullable": true
+        },
+        {
+          "name": "right",
+          "type": "string",
+          "description": "变量",
+          "nullable": true
+        },
+        {
+          "name": "correlation",
+          "type": "number",
+          "description": "相关",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "pair_id"
+      ],
+      "references": [],
+      "path": "data/lab_error.csv",
+      "row_count": 3,
+      "sha256": "b96ad3e49c1ae8951b6617f315b151c98d1362f52f6f10edcad1e9b376fb69e3"
+    },
+    {
+      "name": "contract_terms",
+      "description": "候选合同，最低收益指供方周期净收益下限，热量可靠性由 demand 规定。",
+      "columns": [
+        {
+          "name": "contract_id",
+          "type": "string",
+          "description": "合同",
+          "nullable": true
+        },
+        {
+          "name": "base_price",
+          "type": "number",
+          "description": "每湿吨基价",
+          "nullable": true
+        },
+        {
+          "name": "reference_heat",
+          "type": "number",
+          "description": "基准干基热值",
+          "nullable": true
+        },
+        {
+          "name": "guaranteed_t",
+          "type": "number",
+          "description": "总保底湿吨",
+          "nullable": true
+        },
+        {
+          "name": "recheck_payer",
+          "type": "string",
+          "description": "buyer或supplier",
+          "nullable": true
+        },
+        {
+          "name": "recheck_yuan",
+          "type": "number",
+          "description": "每次复检费用",
+          "nullable": true
+        },
+        {
+          "name": "min_supplier_net",
+          "type": "number",
+          "description": "供方最低净收益",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "contract_id"
+      ],
+      "references": [],
+      "path": "data/contract_terms.csv",
+      "row_count": 3,
+      "sha256": "69b762c53b4411978295cec37a43d3082d0a1c82cef91857cc78822af7c2ecfe"
+    },
+    {
+      "name": "adjustments",
+      "description": "按含水率分段奖扣，可与热值差额同时生效。rate 为每低于基准100兆焦每湿吨扣款。",
+      "columns": [
+        {
+          "name": "row_id",
+          "type": "string",
+          "description": "分段",
+          "nullable": true
+        },
+        {
+          "name": "contract_id",
+          "type": "string",
+          "description": "合同",
+          "nullable": true
+        },
+        {
+          "name": "water_from",
+          "type": "number",
+          "description": "含水率下界",
+          "nullable": true
+        },
+        {
+          "name": "water_to",
+          "type": "number",
+          "description": "上界空为无穷",
+          "nullable": true
+        },
+        {
+          "name": "bonus_yuan_t",
+          "type": "number",
+          "description": "每湿吨奖扣",
+          "nullable": true
+        },
+        {
+          "name": "heat_deduction_rate",
+          "type": "number",
+          "description": "热值差额扣款",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "row_id"
+      ],
+      "references": [
+        {
+          "column": "contract_id",
+          "target_table": "contract_terms",
+          "target_column": "contract_id"
+        }
+      ],
+      "path": "data/adjustments.csv",
+      "row_count": 9,
+      "sha256": "d94a4006c1e3328a89af08b6ab15c49a2ae696154acedb4c2c9fa94843e3a48a"
+    },
+    {
+      "name": "demand",
+      "description": "同一采购周期的热量保证与允许风险。",
+      "columns": [
+        {
+          "name": "requirement_id",
+          "type": "string",
+          "description": "要求",
+          "nullable": true
+        },
+        {
+          "name": "heat_mj",
+          "type": "number",
+          "description": "需求兆焦",
+          "nullable": true
+        },
+        {
+          "name": "shortfall_risk_max",
+          "type": "number",
+          "description": "最大缺供概率",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "requirement_id"
+      ],
+      "references": [],
+      "path": "data/demand.csv",
+      "row_count": 1,
+      "sha256": "b8ff436b33d0038f408e7444fb66e580c960127c5cd093a7a65f1db0d00fe3f4"
+    },
+    {
+      "name": "rulings",
+      "description": "签约后进入的争议裁定，替换留样而非增加车次。",
+      "columns": [
+        {
+          "name": "ruling_id",
+          "type": "string",
+          "description": "裁定",
+          "nullable": true
+        },
+        {
+          "name": "truck_id",
+          "type": "string",
+          "description": "车次",
+          "nullable": true
+        },
+        {
+          "name": "replacement_sample",
+          "type": "string",
+          "description": "新裁定样",
+          "nullable": true
+        },
+        {
+          "name": "available_at",
+          "type": "datetime",
+          "description": "可知时刻",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "ruling_id"
+      ],
+      "references": [
+        {
+          "column": "truck_id",
+          "target_table": "trucks",
+          "target_column": "truck_id"
+        },
+        {
+          "column": "replacement_sample",
+          "target_table": "assays",
+          "target_column": "sample_id"
+        }
+      ],
+      "path": "data/rulings.csv",
+      "row_count": 4,
+      "sha256": "cca4f0110fdc016b29f640da82262ce0fffbb21bc19491771c930cd911d94078"
+    }
+  ]
+}
